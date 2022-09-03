@@ -1,0 +1,55 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/users",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "usuarios"
+    },
+    {
+      "DownstreamPathTemplate": "/posts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/posts",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "posts"
+    },
+    {
+      "DownstreamPathTemplate": "/users/{id}/posts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/posts_user/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "articuloPost"
+    }
+  ],
+
+  "Aggregates": [
+    {
+      "UpstreamPathTemplate": "/api/user-posts",
+      "RouteKeys": [ "usuarios", "posts" ],
+      "Aggregator": "PostUsuarioAggregator"
+    },
+    
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7265/"
+  }
+}
